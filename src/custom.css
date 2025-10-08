@@ -1,0 +1,320 @@
+   /* Custom CSS for smoother transitions, overlay and preloader */
+    /* Custom CSS for smoother transitions, overlay and preloader */
+        .mobile-menu-overlay {
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+            z-index: 40; /* Below fixed navbar */
+        }
+        .mobile-menu {
+            transform: translateX(100%); /* Start off-screen */
+            transition: transform 0.3s ease-out;
+            z-index: 50; /* Above overlay and content */
+        }
+        .mobile-menu.active {
+            transform: translateX(0); /* Slide in */
+        }
+        .full-screen-section {
+            min-height: 100vh; /* Ensure full viewport height */
+            display: flex;
+            flex-direction: column; /* For content alignment */
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding-top: 64px; /* Adjust for fixed navbar height */
+            font-size: 2rem;
+            color: white;
+            scroll-margin-top: 64px; /* Adjust for fixed navbar height */
+        }
+
+        /* Preloader Styles */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #1a202c; /* Dark background matching body */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999; /* Ensure it's on top of everything */
+            opacity: 1;
+            transition: opacity 0.7s ease-out, visibility 0.7s ease-out;
+            visibility: visible;
+        }
+        #preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        /* Modern Preloader: Pulsing Circles */
+        .modern-loader {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 120px;
+            height: 120px;
+            position: relative;
+        }
+
+        .modern-loader .circle {
+            width: 30px;
+            height: 30px;
+            background-color: #3b82f6; /* Tailwind blue-500 */
+            border-radius: 50%;
+            margin: 0 10px;
+            animation: pulse-loader 1.4s infinite ease-in-out both;
+            transform: scale(0); /* Start scaled down */
+        }
+
+        .modern-loader .circle:nth-child(1) {
+            animation-delay: -0.32s; /* Stagger animation */
+        }
+        .modern-loader .circle:nth-child(2) {
+            animation-delay: -0.16s;
+        }
+        .modern-loader .circle:nth-child(3) {
+            animation-delay: 0s;
+        }
+
+        @keyframes pulse-loader {
+            0%, 80%, 100% {
+                transform: scale(0);
+            }
+            40% {
+                transform: scale(1.0);
+            }
+        }
+        /* End Modern Preloader Styles */
+
+
+        /* Home Section specific styles for background animation */
+        .home-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 10; /* Below content */
+        }
+        .animated-gradient {
+            background: linear-gradient(-45deg, #1a202c, #2d3748, #3b82f6, #6b46c1); /* Dark blue/purple gradient */
+            background-size: 400% 400%;
+            animation: gradient-animation 15s ease infinite;
+            position: absolute;
+            width: 150%; /* Larger than viewport for movement */
+            height: 150%;
+            top: -25%;
+            left: -25%;
+            opacity: 0.6; /* So content is readable */
+        }
+
+        @keyframes gradient-animation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+
+                /* Custom styles for unique skill cards */
+        .skill-card {
+            position: relative;
+            background: #1a202c; /* Base dark background */
+            border-radius: 12px; /* Slightly more rounded */
+            padding: 2px; /* For the gradient border effect */
+            overflow: hidden; /* Hide overflowing gradient */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-8px); /* More pronounced lift */
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6), 0 0 20px rgba(59, 130, 246, 0.5); /* Stronger shadow + blue glow */
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(
+                from 0deg at 50% 50%,
+                #1e3a8a, /* Darker blue */
+                #3b82f6, /* Blue */
+                #6d28d9, /* Violet */
+                #9333ea, /* Purple */
+                #1e3a8a /* Darker blue to complete loop */
+            );
+            animation: rotate-border 4s linear infinite;
+            z-index: -1; /* Behind the content */
+            opacity: 0; /* Hidden by default */
+            transition: opacity 0.3s ease-out;
+        }
+
+        .skill-card:hover::before {
+            opacity: 1; /* Show gradient border on hover */
+        }
+
+        .skill-card-inner {
+            background: #1a202c; /* Inner background */
+            padding: 2rem;
+            border-radius: 10px; /* Slightly less rounded than outer */
+            height: 100%; /* Ensure inner fills outer */
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes rotate-border {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Custom style for skill badges */
+        .skill-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px; /* Tailwind's rounded-full */
+            font-size: 0.9rem;
+            font-weight: 600; /* Semi-bold */
+            color: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); /* Softer initial shadow */
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            cursor: default;
+            position: relative;
+            overflow: hidden;
+            /* Subtle inner glow for badges on hover of card */
+        }
+        .group:hover .skill-badge {
+             box-shadow: 0 0 10px rgba(59, 130, 246, 0.7), 0 0 20px rgba(59, 130, 246, 0.3); /* Stronger glow on card hover */
+             transform: translateY(-2px);
+        }
+        .skill-badge:hover { /* Individual badge hover still works */
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.9); /* Even stronger glow on direct badge hover */
+        }
+
+        /* Adjust icon color on card hover */
+        .group:hover .skill-card-inner h3 svg {
+            color: currentColor; /* Inherit color from parent h3 for consistency */
+            filter: drop-shadow(0 0 5px currentColor); /* Subtle glow for icon */
+        }
+
+
+
+         /* Custom styles for unique project cards */
+        .project-card {
+            position: relative;
+            background: #1e293b; /* Slightly lighter dark background than skills card inner */
+            border-radius: 12px;
+            padding: 2px; /* For the gradient border effect */
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Stronger shadow */
+            transition: transform 0.4s ease-out, box-shadow 0.4s ease-out;
+            display: flex; /* Make it a flex container */
+            flex-direction: column; /* Stack children vertically */
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px); /* More dynamic lift and slight rotation */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 25px rgba(20, 184, 166, 0.7); /* Teal glow */
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(
+                from 0deg at 50% 50%,
+                #0f766e, /* Dark teal */
+                #2dd4bf, /* Light teal */
+                #38bdf8, /* Sky blue */
+                #a78bfa, /* Violet */
+                #0f766e /* Dark teal to complete loop */
+            );
+            animation: rotate-border-project 5s linear infinite;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.4s ease-out;
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-card-inner {
+            background: #1e293b; /* Inner background matching skill cards */
+            border-radius: 10px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes rotate-border-project {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Tech Badges for Projects */
+        .tech-badge {
+            display: inline-block;
+            padding: 0.4rem 0.8rem;
+            border-radius: 9999px;
+            font-size: 0.8rem; /* Slightly smaller for compactness */
+            font-weight: 500;
+            color: white;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            cursor: default;
+        }
+
+        .group:hover .tech-badge {
+            box-shadow: 0 0 10px rgba(45, 212, 191, 0.6); /* Teal glow for badges */
+            transform: translateY(-1px);
+        }
+
+        .tech-badge:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 0 15px rgba(45, 212, 191, 0.9);
+        }
+
+        /* Project Links */
+        .project-link {
+            display: flex;
+            align-items: center;
+            color: #22d3ee; /* Cyan for links */
+            font-weight: 600;
+            transition: color 0.3s ease-out, transform 0.3s ease-out;
+        }
+        .project-link:hover {
+            color: #67e8f9; /* Lighter cyan on hover */
+            transform: translateX(5px);
+            text-decoration: underline;
+        }
+        .project-link svg {
+            transition: transform 0.3s ease-out;
+        }
+        .project-link:hover svg {
+            transform: translateX(3px);
+        }
+
+        .project-link-icon {
+            color: #94a3b8; /* Slate gray for icons */
+            transition: color 0.3s ease-out, transform 0.3s ease-out;
+        }
+        .project-link-icon:hover {
+            color: #e2e8f0; /* Lighter on hover */
+            transform: translateY(-2px) scale(1.1);
+        }
